@@ -107,18 +107,18 @@ nnoremap <leader>s :mksession<CR>
 nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
 nnoremap <leader>1 :set number!<CR>
 nnoremap <leader>r :TestFile<CR>
-nnoremap <leader>g :call RunGoFile()<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>d :NERDTreeToggle<CR>
-" <C-w> sucks
-nnoremap <leader>w <C-w>
-nnoremap <leader>h <C-w>h
-nnoremap <leader>j <C-w>j
-nnoremap <leader>k <C-w>k
-nnoremap <leader>l <C-w>l
+set pastetoggle=<leader>p
 " }}}
 " Normal mode mappings {{{
 nmap <S-tab> :bNext<cr>         " For fast moving through buffers
+" Faster switching between splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-o> <C-w>o
 " }}}
 " Visual mode mappings {{{
 " move selected block up/down in visual mode
@@ -164,11 +164,12 @@ set writebackup
 " }}}
 " airline {{{
 set laststatus=2
-let g:airline_theme = 'zenburn'
+let g:airline_theme = 'badwolf'
 let g:airline_left_sep = ''
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_sep = ''
+let g:airline#extensions#tabline#enabled = 1
 " }}}
 " Custom Functions {{{
 function! ToggleNumber()
