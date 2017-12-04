@@ -58,22 +58,41 @@ else
 fi
 
 #
-# Bash completion
+# Completion settings
 #
 
-# enable programmable completion
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-if [ -f /etc/profile.d/bash_completion.sh ] && ! shopt -oq posix; then
-    . /etc/profile.d/bash_completion.sh
-fi
-# load git completion
-if [ -f ~/.git-completion.bash ]; then
-    . ~/.git-completion.bash
+# Enable completion
+## for windows
+if [ "$(uname)" = "Msys" ]; then
+    source /usr/share/git/completion/git-prompt.sh
+    source /usr/share/git/completion/git-completion.bash
+## for Linux
+elif [ "$(uname)" = "Linux" ]; then
+    # Load Bash completion
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        source /etc/bash_completion
+    fi
+    if [ -f /etc/profile.d/bash_completion.sh ] && ! shopt -oq posix; then
+        source /etc/profile.d/bash_completion.sh
+    fi
+    # Load Git completion
+    source /usr/share/git-core/contrib/completion/git-prompt.sh
+    source /etc/bash_completion.d/git
+## for mac
+elif [ "$(uname)" = "Darwin" ]; then
+    source /usr/local/etc/bash_completion.d/git-prompt.sh
+    source /usr/local/etc/bash_completion.d/git-completion.bash
 fi
 
 # Tab completion for ssh hosts, from known_hosts.
 if [ -f ~/.ssh/known_hosts ]; then
   complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
 fi
+#
+# Git configuration
+#
+GIT_PS1_SHOWDIRTYSTATE=true
+#
+# Prompt configuration
+#
+PS1='\[\033[32m\]\u:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
