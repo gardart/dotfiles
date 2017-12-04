@@ -128,7 +128,7 @@ set -e
 (
   determine_package_manager
   # general package array
-  declare -a packages=('vim' 'git' 'tree' 'htop' 'wget' 'curl')
+  declare -a packages=('vim' 'git' 'tree' 'htop' 'wget' 'curl' 'bash-completion' 'bash-completion-extras')
 
   determine_shell
   if [[ $LOGIN_SHELL == 'bash' ]] ; then
@@ -140,14 +140,14 @@ set -e
   if [[ $OSPACKMAN == "homebrew" ]]; then
     echo "You are running homebrew."
     echo "Using Homebrew to install packages..."
-    brew update
+    # brew update
     declare -a macpackages=('findutils' 'macvim' 'the_silver_searcher')
-#    brew install "${packages[@]}" "${macpackages[@]}"
+    brew install "${packages[@]}" "${macpackages[@]}"
 #    brew cleanup
   elif [[ "$OSPACKMAN" == "yum" ]]; then
     echo "You are running yum."
     echo "Using yum to install packages...."
-    sudo yum update
+    # sudo yum update
     sudo yum install "${packages[@]}"
   elif [[ "$OSPACKMAN" == "aptget" ]]; then
     echo "You are running apt-get"

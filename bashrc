@@ -56,3 +56,24 @@ else
     export EDITOR='vim'
     export GIT_EDITOR='vim'
 fi
+
+#
+# Bash completion
+#
+
+# enable programmable completion
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+if [ -f /etc/profile.d/bash_completion.sh ] && ! shopt -oq posix; then
+    . /etc/profile.d/bash_completion.sh
+fi
+# load git completion
+if [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+fi
+
+# Tab completion for ssh hosts, from known_hosts.
+if [ -f ~/.ssh/known_hosts ]; then
+  complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
+fi
