@@ -10,6 +10,7 @@ Plug 'bling/vim-airline'
 Plug 'kien/ctrlp.vim'
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'                   " shows a git diff in the 'gutter' (sign column)
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -129,7 +130,12 @@ vnoremap K :m '<-2<CR>gv=gv
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
+let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg|git)$'
+if has('wildignore')
+  set wildignore+=*.o,*.rej           " patterns to ignore during file-navigation (like fuzzy find ctrl-p plugin)
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+  set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+endif
 " }}}
 " Syntastic {{{
 let g:syntastic_python_flake8_args='--ignore=E501'
