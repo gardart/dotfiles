@@ -21,6 +21,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'sjl/badwolf'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'crazy-canux/nagios.vim'
 call plug#end()
 " }}}
 " Colors {{{
