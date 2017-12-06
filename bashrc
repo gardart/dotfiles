@@ -46,7 +46,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # User prompt
-export PS1="\u@\h:\W\\ $ "
+# export PS1="\u@\h:\W\\ $ "
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -76,8 +76,12 @@ elif [ "$(uname)" = "Linux" ]; then
         source /etc/profile.d/bash_completion.sh
     fi
     # Load Git completion
-    source /usr/share/git-core/contrib/completion/git-prompt.sh
+    if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && ! shopt -oq posix; then
+        source /usr/share/git-core/contrib/completion/git-prompt.sh
+    fi
+    if [/etc/bash_completion.d/git] && ! shopt -oq posix; then
     source /etc/bash_completion.d/git
+    fi
 ## for mac
 elif [ "$(uname)" = "Darwin" ]; then
     source /usr/local/etc/bash_completion.d/git-prompt.sh
@@ -95,4 +99,5 @@ GIT_PS1_SHOWDIRTYSTATE=true
 #
 # Prompt configuration
 #
-PS1='\[\033[32m\]\u:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+PS1='\[\033[32m\]\u@\h:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+# export PS1='`if [ $? = 0 ]; then echo "\[\033[01;32m\]✔"; else echo "\[\033[01;31m\]✘"; fi` \[\033[01;30m\]\u@\h\[\033[01;34m\] \w\[\033[35m\]$(__git_ps1 " %s") \[\033[01;31m\]]$\[\033[00m\] '
