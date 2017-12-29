@@ -148,7 +148,8 @@ set -e
     echo "You are running yum."
     echo "Using yum to install packages...."
     # sudo yum update
-    sudo yum install "${packages[@]}"
+    declare -a rhelpackages=('the_silver_searcher')
+    sudo yum install "${packages[@]}" "${rhelpackages}"
   elif [[ "$OSPACKMAN" == "aptget" ]]; then
     echo "You are running apt-get"
     echo "Using apt-get to install packages...."
