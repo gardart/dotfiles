@@ -12,7 +12,8 @@ Plug 'janko-m/vim-test'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'                   " shows a git diff in the 'gutter' (sign column)
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline-themes'
@@ -23,6 +24,7 @@ Plug 'sjl/badwolf'
 Plug 'hzchirs/vim-material'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'crazy-canux/nagios.vim'
+Plug 'SirVer/ultisnips' " | Plug 'honza/vim-snippets'
 call plug#end()
 " }}}
 " Colors {{{
@@ -30,7 +32,8 @@ syntax enable           " enable syntax processing
 if has('termguicolors')
   set termguicolors     " use guifg/guibg instead of ctermfg/ctermbg in terminal
 endif
-colorscheme badwolf
+" colorscheme badwolf
+colorscheme vim-material
 " }}}
 " Misc {{{
 scriptencoding utf-8
@@ -127,6 +130,11 @@ nnoremap <C-o> <C-w>o
 " move selected block up/down in visual mode
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+" }}}
+" Snippets {{{
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " }}}
 " CtrlP {{{
 let g:ctrlp_match_window = 'bottom,order:ttb'
