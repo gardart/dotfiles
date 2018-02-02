@@ -1,7 +1,7 @@
 # .bashrc
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
+if [[ -f /etc/bashrc ]]; then
   . /etc/bashrc
 fi
 
@@ -34,7 +34,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if [[ -x /usr/bin/dircolors ]]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   #alias dir='dir --color=auto'
@@ -63,33 +63,33 @@ fi
 
 # Enable completion
 ## for windows
-if [ "$(uname)" = "Msys" ]; then
+if [[ "$(uname)" = "Msys" ]]; then
     source /usr/share/git/completion/git-prompt.sh
     source /usr/share/git/completion/git-completion.bash
 ## for Linux
-elif [ "$(uname)" = "Linux" ]; then
+elif [[ "$(uname)" = "Linux" ]]; then
     # Load Bash completion
-    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    if [[ -f /etc/bash_completion ]]; then
         source /etc/bash_completion
     fi
-    if [ -f /etc/profile.d/bash_completion.sh ] && ! shopt -oq posix; then
+    if [[ -f /etc/profile.d/bash_completion.sh ]]; then
         source /etc/profile.d/bash_completion.sh
     fi
     # Load Git completion
-    if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ] && ! shopt -oq posix; then
+    if [[ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]]; then
         source /usr/share/git-core/contrib/completion/git-prompt.sh
     fi
-    if [/etc/bash_completion.d/git] && ! shopt -oq posix; then
-    source /etc/bash_completion.d/git
+    if [[ -f /etc/bash_completion.d/git ]]; then
+        source /etc/bash_completion.d/git
     fi
 ## for mac
-elif [ "$(uname)" = "Darwin" ]; then
+elif [[ "$(uname)" = "Darwin" ]]; then
     source /usr/local/etc/bash_completion.d/git-prompt.sh
     source /usr/local/etc/bash_completion.d/git-completion.bash
 fi
 
 # Tab completion for ssh hosts, from known_hosts.
-if [ -f ~/.ssh/known_hosts ]; then
+if [[ -f ~/.ssh/known_hosts ]]; then
   complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
 fi
 #

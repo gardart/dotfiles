@@ -3,16 +3,18 @@
 [core]
   excludesfile = ~/.gitignore-global
   quotepath = false
+	editor = vim
 
 [user]
-  name  = Gardar Thorsteinsson
-  email = gardart@gmail.com
+	name = gardart
+	email = gardart@gmail.com
 
 [color]
-  branch = auto
-  diff = auto
-  status = auto
+	branch = auto
+	diff = auto
+	status = auto
   grep = auto
+	ui = true
 [color "branch"]
   current = yellow reverse
   local = yellow
