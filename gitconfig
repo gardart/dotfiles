@@ -1,216 +1,256 @@
-# vim: st=2:ts=2:et
+# A good list of alises http://haacked.com/archive/2014/07/28/github-flow-aliases/
+[alias]
+        # Staging
+        a = add
+        aa = add --all
+
+        # Branch
+        br = branch
+        branch-name = rev-parse --abbrev-ref HEAD
+        branch-diff = diff master...HEAD
+        branch-files = "!git diff master...HEAD --name-status | sed '/^D/d ; s/^.\\s\\+//'"
+
+        # Commit
+        c = commit
+        ca = commit -a
+        cm = commit -m
+        cal = !git add -A && git commit              # Commit all changes
+        cam = commit -am
+        cne = commit --no-edit
+        amend = commit --amend
+        amend-all = !git add --all && git commit --amend --reuse-message=HEAD
+
+        # Clone
+        cl = clone
+        sclone = clone --depth=1
+
+        # Checkout
+        co = checkout
+        cb = checkout -b
+
+        # Cherry-pick
+        cp = cherry-pick
+
+        # Diff
+        d = diff --color-words
+        dc = diff --cached
+        df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+        # Merge
+        m = merge
+
+        # Pull
+        up = pull
+        plom = pull origin master
+        plum = pull upstream master
+        preb = !git fetch upstream && git rebase upstream/master
+
+        # Push
+        p = push
+        pom = push origin master
+        poh = push origin head
+
+        # Stash
+        st = stash
+        stp = stash pop
+
+        # Status/Logging
+        s = status
+        ss = status -sb
+        hist = log --graph --pretty=custom           # Show custom graph
+        l = log --pretty=custom                      # Show custom log
+        ll = log --stat --abbrev-commit
+        lc = shortlog --summary --numbered           # List contributors
+
+        # Reset
+        unstage = reset HEAD --                      # Mixed reset (affects HEAD and Index)
+        undo = reset --soft HEAD~1                   # Undo last commit (affects HEAD only)
+        reset = reset --hard HEAD~1                  # Remove last commit (from HEAD, Index and Working Dir)
+
+        # Remote
+        r = remote -v
+
+        # Submodules
+        subpl = submodule update --init --recursive
+
+        # Git flow
+        new = !git pull origin develop && git flow feature start
+        done = !git pull origin develop && git flow feature finish "$(git symbolic-ref --short HEAD | sed -n 's/^feature\\///p')"
+        go = !git checkout $1 && pull
+        master = !git checkout master && pull
+        develop = !git checkout develop && pull
+        mmm = !git fetch origin master && git rebase origin/master
+        ddd = !git fetch origin develop && git rebase origin/develop
+
+        # Misc
+        publish = "!git push --set-upstream origin $(git branch-name)"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Find commits by source code
+
+  cc = "!f() { \
+      git log --pretty=custom --decorate --date=short -S\"$1\"; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Find commits by commit message
+
+  cm = "!f() { \
+      git log --pretty=custom --decorate --date=short --grep=\"$1\"; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Credit an author on the latest commit
+
+  credit = "!f() { \
+      if [ -n \"$1\" ] && [ -n \"$2\" ]; then \
+          git commit --amend --author \"$1 <$2>\" -C HEAD; \
+      fi \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # List remote branches
+
+  lrb = "!f() { \
+      remote="${1:-origin}"; \
+      git ls-remote --heads "$remote"; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Merge GitHub pull request on top of the current branch or,
+  # if a branch name is specified, on top of the specified branch
+
+  mpr = "!f() { \
+      declare currentBranch=\"$(git symbolic-ref --short HEAD)\"; \
+      declare branch=\"${2:-$currentBranch}\"; \
+      if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
+          git fetch origin refs/pull/$1/head:pr/$1 && \
+          git checkout -B $branch && \
+          git rebase $branch pr/$1 && \
+          git checkout -B $branch && \
+          git merge pr/$1 && \
+          git branch -D pr/$1 && \
+          git commit --amend -m \"$(git log -1 --pretty=%B)\n\nClose #$1\"; \
+      fi \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Remove the tag with the specified tag name if
+  # exists and tag the latest commit with that name
+
+  retag = "!f() { \
+      git tag -d "$1" &> /dev/null; \
+      git tag $1; \
+  }; f"
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# So much color
+[color]
+        ui = always
+
+[color "branch"]
+        current = green bold
+        local = green
+        remote = yellow
+
+[color "diff"]
+        frag = magenta
+        meta = yellow
+        new = green
+        old = red
+
+[color "diff-highlight"]
+        oldNormal = red bold
+        oldHighlight = "red bold 52"
+        newNormal = "green bold"
+        newHighlight = "green bold 22"
+
+[color "status"]
+        added = green reverse
+        changed = yellow reverse
+        untracked = red reverse
+
+# Git mergetool
+[merge]
+        tool = opendiff
 
 [core]
-  excludesfile = ~/.gitignore-global
-  quotepath = false
-	editor = vim
+        editor = nano
+        abbrev = 12
+        attributesfile = ~/.gitattributes
+        excludesfile = ~/.gitignore
+        autocrlf = input
+        mergeoptions = --no-edit
+        ignorecase = false
 
-[user]
-	name = gardart
-	email = gardart@gmail.com
+[pager]
+        # Insanely beautiful diffs ==> npm install -g diff-so-fancy
+        diff = diff-so-fancy | less --tabs=4 -RFX
+        show = diff-so-fancy | less --tabs=4 -RFX
 
-[color]
-	branch = auto
-	diff = auto
-	status = auto
-  grep = auto
-	ui = true
-[color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
-[color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
-[color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
-
-[log]
-  date = relative
-
-[merge]
-  tool = vimdiff
-
-[mergetool]
-  prompt = false
-  tool = vimdiff
-
-[diff]
-  tool = vimdiff
-
-[difftool]
-  prompt = false
+[diff "bin"]
+        # Use `hexdump` to diff binary files
+        textconv = hexdump -v -C
 
 [pretty]
-  log=fuller
-  ll=tformat:%C(yellow)%h%Creset %s %Cgreen(%cr) %C(bold blue) %an %Creset%C(red)%d%Creset
-  lh=tformat:%C(red)%d%Creset %C(yellow)%h%Creset %Cgreen(%cr)%Creset %s %C(bold blue) %an %Creset
+        custom = "%C(magenta)%h%C(red)%d %C(yellow)%ar %C(green)%s %C(yellow)(%an)"
+        #                     │        │            │            │             └─ author name
+        #                     │        │            │            └─ message
+        #                     │        │            └─ date (relative)
+        #                     │        └─ decorations (branch, heads or tags)
+        #                     └─ hash (abbreviated)
 
-[alias]
+[help]
+        # Correct typos
+        autocorrect = 1
 
-  # Adding
-  a     = add
-  ae    = add --edit
-  ai    = add --interactive
-  ap    = add --patch
-  au    = add --update
+# Any GitHub repo with my username should be checked out r/w by default
+# http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
+[url "git@github.com:gardart/"]
+        insteadOf = "git://github.com/gardart/"
 
-  # Branching
-  b     = branch
-  bls   = branch -v # list branches with last commit in
+# Rewrites of repo paths
+[url "git@github.com:"]
+        insteadOf = "gh:"
+        insteadOf = "git://github.com"
+        pushInsteadOf = "github:"
+        pushInsteadOf = "git://github.com/"
+        pushInsteadOf = "https://github.com/"
 
-  brm   = branch -d # remove if branch-to-be-removed if fully merged into HEAD
-  brmf  = branch -D # force removal
+[url "git://github.com/"]
+        insteadOf = "github:"
 
-  # Config
-  cg    = config --global
-  clg   = config --global --list
-  c     = config
-  cl    = config --list
-  ce    = config --edit
-  ceg   = config --global --edit
+[url "git@gist.github.com:"]
+        insteadOf = "gst:"
+        pushInsteadOf = "gist:"
+        pushInsteadOf = "git://gist.github.com/"
+        pushInsteadOf = "https://gist.github.com/"
 
-  # Checkout
-  co    = checkout
-  co-   = checkout -                                                                # previous one
-  cob   = checkout -b                                                               # checkout into a new branch
-  com   = "!f() { git fetch; git checkout -b master origin/master; }; f"            # checkout master branch
-  cot   = "!f() { git fetch; git checkout -b ${1##*/} $1; }; f "                    # 
-  con   = "!f() { git fetch; git checkout -b $1 origin/master }; f "                # new branch off master
+[url "git://gist.github.com/"]
+        insteadOf = "gist:"
 
-  # fzf checkout
-  zco    = "!f() { git checkout $(git bls \"$@\"|grep -v '^*'|fzf|awk '{print $1}'); }; f"
+# Push easily http://stackoverflow.com/a/23918418/89484
+[push]
+        # Make `git push` automatically push relevant
+        # annotated tags when pushing branches out
+        followTags = true
+        default = current
 
-  # checkout a github PR
-  copr  = "!f() { local b=pull/$1; git fetch origin $b/head:$b && git checkout $b; }; f"
+# Use separate file for username / github token / etc
+[include]
+        path = ~/.gitconfig.local
 
-  # Add and Commit
-  ca    = "!f() { git add $1; git ci -v $1; }; f"
+[filter "lfs"]
+        clean = git lfs clean %f
+        smudge = git lfs smudge %f
+        required = true
 
-  # Commit
-  # commit all using previous commit message as a template
-  cia   = commit -a -e -C HEAD -v --reset-author --untracked-files=no
-
-  # commit staged using prev commit message as a template
-  ci    = commit -v --untracked-files=no
-
-  # commit using branch name as an initial msg
-  ciab  = !B=$(git symbolic-ref HEAD 2>/dev/null) && git commit -v -a --edit -m "${B##refs/heads/}:" --untracked-files=no
-
-  cii   = commit --interactive
-
-  cid   = commit --amend -v                                                       # edit last commit's message
-  cim   = commit -m
-  cip   = commit -am 'WIP!'
-
-  # change author of latest commit
-  # assumes properly configured author to be now set in the local config
-  ciu   ="!git commit --amend --author=\"`git config --local --get user.name` <`git config --local --get user.email`>\""
-
-  chp   = cherry-pick
-
-  ctags = "!.git/hooks/ctags"
-
-  # Diff
-  d     = diff
-  ds    = diff --staged
-  du    = diff @{upstream}
-  dt    = diff --stat=120,130 -M -C
-  dls   = diff --name-status -M -C
-
-  # Edit files
-  em    = "!${EDITOR:-vim} $(git ls-files --modified)"
-  ea    = "!${EDITOR:-vim} $(git status --short --porcelain|cut -f2 -d' ')"
-
-  # Grep
-  g    = "!git --no-pager grep --color --ignore-case -n"
-
-  # Log
-  ll    = log --pretty=ll  --abbrev-commit                                    # compact log
-  l     = log --pretty=log
-  lt    = log --pretty=log --name-status                                      # terse log with filenames
-  ls    = log --pretty=log --stat
-  lp    = log --pretty=log --patch -m -c                                      # show merges and compressed diff format
-  lpw   = log --pretty=log --patch --word-diff
-  l1    = !"git --no-pager ll -10"
-  lg    = !git ll --graph
-  lu    = log @{upstream}.. --stat --no-merges
-  llu    = !git ll @{upstream}..
-
-  # Push
-  po    = push --set-upstream origin HEAD
-
-  # Pull
-  pu    = pull
-  pr    = pull --rebase
-
-  # patch
-  # outputs to stdout instead of a-file-file-commit. Handy for dumping commit log into a file
-  fps   = format-patch --stdout
-
-  # Rebase
-  r     = rebase
-  ra    = rebase --abort
-  rc    = rebase --continue
-  ri    = rebase --interactive
-  ru    = rebase --onto @{upstream}
-
-  # interactive rebase mostly for squashing/rearranging commits
-  # operates on last 2 if not specified otherwise
-  rih   = "!f() { git rebase -i HEAD~${1:-'2'}; }; f "
-
-  # rebase up to the very first commit; special case
-  riroot   = rebase --interactive --root
-
-  # Reset
-  # resets staged chages
-  rst   = reset
-
-  # resets last commit
-  rstl   = reset HEAD^
-
-  # select hunks to unstage|reset
-  rstp   = reset --patch
-
-  # reset to @{upstream} with confirmation
-  roh   = "! git --no-pager ll -10 @{upstream} && read -p '^C to stop, anykey to continue' Z && git rst --hard @{upstream}"
-
-
-  # Status
-  # don't show untracked files
-  st    = status --short --branch --untracked-files=no
-  # show all
-  sta   = status --short --branch --untracked-files=normal
-
-  # sync
-  sy     = !git pull --rebase && git push
-
-  sw    = update-index  --skip-worktree 
-  nosw  = update-index --no-skip-worktree
-
-  ta    ="!f() { tn=$1; shift; git tag -a $tn -m $tn $@; }; f "
-
-  # Show current `"user" <em@a.il>` configured
-  w     = "! echo \"$(git config user.name) <$(git config user.email)> \"" 
-
-  # me2 == "merge to" merge current branch to named one.
-  # does 3 operations in one shot unless merge conflicts
-  me2   = "!f() { git checkout $1 && git pull && git merge -; }; f "
-  
-  sup = "!git ll --since=$([ $(date +%w) -eq 1 ] && date -v-3d +%F || date -v-1d +%F) --author=\"`git config user.name`\""
-
-  #  ticket = "!f() { git checkout -b `echo $1|tr 'A-Z' 'a-z'` origin/master }; f "
-  #
-  # xargs
-  # run command on modified files
-  x = "!f() { git status --short --untracked-files=no | cut -d' ' -f3 | xargs $1; }; f"
-
-  ## Hub
-  hpr = "!hub pull-request"
-  hbr = "!hub browse"
-  h   = "!hub"
-
+[fetch]
+        prune = true
