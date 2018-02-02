@@ -24,6 +24,7 @@ Plug 'hzchirs/vim-material'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'crazy-canux/nagios.vim'
 Plug 'SirVer/ultisnips' " | Plug 'honza/vim-snippets'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 " }}}
 " Colors {{{
