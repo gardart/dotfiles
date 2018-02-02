@@ -1,0 +1,214 @@
+# vim: st=2:ts=2:et
+
+[core]
+  excludesfile = ~/.gitignore-global
+  quotepath = false
+
+[user]
+  name  = Gardar Thorsteinsson
+  email = gardart@gmail.com
+
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+  grep = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[log]
+  date = relative
+
+[merge]
+  tool = vimdiff
+
+[mergetool]
+  prompt = false
+  tool = vimdiff
+
+[diff]
+  tool = vimdiff
+
+[difftool]
+  prompt = false
+
+[pretty]
+  log=fuller
+  ll=tformat:%C(yellow)%h%Creset %s %Cgreen(%cr) %C(bold blue) %an %Creset%C(red)%d%Creset
+  lh=tformat:%C(red)%d%Creset %C(yellow)%h%Creset %Cgreen(%cr)%Creset %s %C(bold blue) %an %Creset
+
+[alias]
+
+  # Adding
+  a     = add
+  ae    = add --edit
+  ai    = add --interactive
+  ap    = add --patch
+  au    = add --update
+
+  # Branching
+  b     = branch
+  bls   = branch -v # list branches with last commit in
+
+  brm   = branch -d # remove if branch-to-be-removed if fully merged into HEAD
+  brmf  = branch -D # force removal
+
+  # Config
+  cg    = config --global
+  clg   = config --global --list
+  c     = config
+  cl    = config --list
+  ce    = config --edit
+  ceg   = config --global --edit
+
+  # Checkout
+  co    = checkout
+  co-   = checkout -                                                                # previous one
+  cob   = checkout -b                                                               # checkout into a new branch
+  com   = "!f() { git fetch; git checkout -b master origin/master; }; f"            # checkout master branch
+  cot   = "!f() { git fetch; git checkout -b ${1##*/} $1; }; f "                    # 
+  con   = "!f() { git fetch; git checkout -b $1 origin/master }; f "                # new branch off master
+
+  # fzf checkout
+  zco    = "!f() { git checkout $(git bls \"$@\"|grep -v '^*'|fzf|awk '{print $1}'); }; f"
+
+  # checkout a github PR
+  copr  = "!f() { local b=pull/$1; git fetch origin $b/head:$b && git checkout $b; }; f"
+
+  # Add and Commit
+  ca    = "!f() { git add $1; git ci -v $1; }; f"
+
+  # Commit
+  # commit all using previous commit message as a template
+  cia   = commit -a -e -C HEAD -v --reset-author --untracked-files=no
+
+  # commit staged using prev commit message as a template
+  ci    = commit -v --untracked-files=no
+
+  # commit using branch name as an initial msg
+  ciab  = !B=$(git symbolic-ref HEAD 2>/dev/null) && git commit -v -a --edit -m "${B##refs/heads/}:" --untracked-files=no
+
+  cii   = commit --interactive
+
+  cid   = commit --amend -v                                                       # edit last commit's message
+  cim   = commit -m
+  cip   = commit -am 'WIP!'
+
+  # change author of latest commit
+  # assumes properly configured author to be now set in the local config
+  ciu   ="!git commit --amend --author=\"`git config --local --get user.name` <`git config --local --get user.email`>\""
+
+  chp   = cherry-pick
+
+  ctags = "!.git/hooks/ctags"
+
+  # Diff
+  d     = diff
+  ds    = diff --staged
+  du    = diff @{upstream}
+  dt    = diff --stat=120,130 -M -C
+  dls   = diff --name-status -M -C
+
+  # Edit files
+  em    = "!${EDITOR:-vim} $(git ls-files --modified)"
+  ea    = "!${EDITOR:-vim} $(git status --short --porcelain|cut -f2 -d' ')"
+
+  # Grep
+  g    = "!git --no-pager grep --color --ignore-case -n"
+
+  # Log
+  ll    = log --pretty=ll  --abbrev-commit                                    # compact log
+  l     = log --pretty=log
+  lt    = log --pretty=log --name-status                                      # terse log with filenames
+  ls    = log --pretty=log --stat
+  lp    = log --pretty=log --patch -m -c                                      # show merges and compressed diff format
+  lpw   = log --pretty=log --patch --word-diff
+  l1    = !"git --no-pager ll -10"
+  lg    = !git ll --graph
+  lu    = log @{upstream}.. --stat --no-merges
+  llu    = !git ll @{upstream}..
+
+  # Push
+  po    = push --set-upstream origin HEAD
+
+  # Pull
+  pu    = pull
+  pr    = pull --rebase
+
+  # patch
+  # outputs to stdout instead of a-file-file-commit. Handy for dumping commit log into a file
+  fps   = format-patch --stdout
+
+  # Rebase
+  r     = rebase
+  ra    = rebase --abort
+  rc    = rebase --continue
+  ri    = rebase --interactive
+  ru    = rebase --onto @{upstream}
+
+  # interactive rebase mostly for squashing/rearranging commits
+  # operates on last 2 if not specified otherwise
+  rih   = "!f() { git rebase -i HEAD~${1:-'2'}; }; f "
+
+  # rebase up to the very first commit; special case
+  riroot   = rebase --interactive --root
+
+  # Reset
+  # resets staged chages
+  rst   = reset
+
+  # resets last commit
+  rstl   = reset HEAD^
+
+  # select hunks to unstage|reset
+  rstp   = reset --patch
+
+  # reset to @{upstream} with confirmation
+  roh   = "! git --no-pager ll -10 @{upstream} && read -p '^C to stop, anykey to continue' Z && git rst --hard @{upstream}"
+
+
+  # Status
+  # don't show untracked files
+  st    = status --short --branch --untracked-files=no
+  # show all
+  sta   = status --short --branch --untracked-files=normal
+
+  # sync
+  sy     = !git pull --rebase && git push
+
+  sw    = update-index  --skip-worktree 
+  nosw  = update-index --no-skip-worktree
+
+  ta    ="!f() { tn=$1; shift; git tag -a $tn -m $tn $@; }; f "
+
+  # Show current `"user" <em@a.il>` configured
+  w     = "! echo \"$(git config user.name) <$(git config user.email)> \"" 
+
+  # me2 == "merge to" merge current branch to named one.
+  # does 3 operations in one shot unless merge conflicts
+  me2   = "!f() { git checkout $1 && git pull && git merge -; }; f "
+  
+  sup = "!git ll --since=$([ $(date +%w) -eq 1 ] && date -v-3d +%F || date -v-1d +%F) --author=\"`git config user.name`\""
+
+  #  ticket = "!f() { git checkout -b `echo $1|tr 'A-Z' 'a-z'` origin/master }; f "
+  #
+  # xargs
+  # run command on modified files
+  x = "!f() { git status --short --untracked-files=no | cut -d' ' -f3 | xargs $1; }; f"
+
+  ## Hub
+  hpr = "!hub pull-request"
+  hbr = "!hub browse"
+  h   = "!hub"
+
