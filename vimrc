@@ -13,7 +13,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'                   " shows a git diff in the 'gutter' (sign column)
 Plug 'scrooloose/nerdtree'
 " Plug 'scrooloose/syntastic'
-Plug 'w0rp/ale'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline-themes'
