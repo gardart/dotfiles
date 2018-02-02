@@ -25,6 +25,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'crazy-canux/nagios.vim'
 Plug 'SirVer/ultisnips' " | Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
+if (v:version > 799)
+  Plug 'w0rp/ale'
+endif
 call plug#end()
 " }}}
 " Colors {{{
