@@ -67,11 +67,11 @@ function setup_git() {
   git config --global user.name "$GIT_USER"
   read -p 'Enter email: ' GIT_EMAIL
   git config --global user.email $GIT_EMAIL
-  git config --global core.editor vim
-  git config --global color.ui true
-  git config --global color.diff auto
-  git config --global color.status auto
-  git config --global color.branch auto
+#  git config --global core.editor vim
+#  git config --global color.ui true
+#  git config --global color.diff auto
+#  git config --global color.status auto
+#  git config --global color.branch auto
 }
 
 # Adds a symbolic link to files in ~/.dotfiles
