@@ -34,8 +34,8 @@ syntax enable           " enable syntax processing
 if has('termguicolors')
   set termguicolors     " use guifg/guibg instead of ctermfg/ctermbg in terminal
 endif
-" colorscheme badwolf
-colorscheme vim-material
+colorscheme badwolf
+" colorscheme vim-material
 " }}}
 " Misc {{{
 scriptencoding utf-8
