@@ -254,3 +254,7 @@
 
 [fetch]
         prune = true
+
+[user]
+	    name = Gardar Thorsteinsson
+	    email = gardart@gmail.com
