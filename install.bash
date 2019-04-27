@@ -128,7 +128,7 @@ set -e
 (
   determine_package_manager
   # general package array
-  declare -a packages=('vim' 'git' 'tree' 'htop' 'wget' 'curl' 'bash-completion' 'bash-completion-extras')
+  declare -a packages=('vim' 'git' 'tree' 'htop' 'wget' 'curl' 'bash-completion')
 
   determine_shell
   if [[ $LOGIN_SHELL == 'bash' ]] ; then
