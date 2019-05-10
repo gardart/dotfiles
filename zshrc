@@ -5,7 +5,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="dieter"
+#ZSH_THEME="dieter"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -45,7 +46,33 @@ ZSH_THEME="dieter"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+    docker
+    zsh-autosuggestions
+    zsh-completions
+    )
+
+# POWERLINE FONT
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status node_version background_jobs history time)
+
+#POWERLEVEL9K_TIME_FORMAT="%D{%H:%M %m.%d.%y}"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S}"
+POWERLEVEL9K_STATUS_VERBOSE=false
+
+#POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+POWERLEVEL9K_NODE_VERSION_BACKGROUND='022'
+
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+POWERLEVEL9K_OS_ICON_BACKGROUND="white"
+POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+POWERLEVEL9K_CONTEXT_TEMPLATE="%n"
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,3 +107,9 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#eval "$(dircolors ~/.dircolors)";
+#eval "$(dircolors ~/dircolors-solarized/dircolors.256dark)";
+eval "$(dircolors ~/dircolors-solarized/dircolors.ansi-dark)";

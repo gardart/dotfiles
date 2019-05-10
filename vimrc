@@ -18,6 +18,8 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'connorholyday/vim-snazzy'
+Plug 'ayu-theme/ayu-vim'
 Plug 'sjl/badwolf'
 Plug 'hzchirs/vim-material'
 Plug 'editorconfig/editorconfig-vim'
@@ -27,6 +29,11 @@ Plug 'sheerun/vim-polyglot'
 if (v:version > 799)
   Plug 'w0rp/ale'
 endif
+" If installed using Homebrew
+"Plug '/usr/local/opt/fzf'
+Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
+" If installed using git
+"Plug '~/.fzf'
 call plug#end()
 " }}}
 " Colors {{{
@@ -34,7 +41,11 @@ syntax enable           " enable syntax processing
 if has('termguicolors')
   set termguicolors     " use guifg/guibg instead of ctermfg/ctermbg in terminal
 endif
-colorscheme badwolf
+" colorscheme badwolf
+" colorscheme base16-monokai
+" colorscheme base16-solarized-dark
+" colorscheme snazzy
+colorscheme ayu
 " colorscheme vim-material
 " }}}
 " Misc {{{
@@ -182,7 +193,9 @@ set writebackup
 " }}}
 " airline {{{
 set laststatus=2
-let g:airline_theme = 'badwolf'
+" let g:airline_theme = 'badwolf'
+" let g:airline_theme = 'solarized'
+let g:airline_theme = 'ayu'
 let g:airline_left_sep = ''
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
