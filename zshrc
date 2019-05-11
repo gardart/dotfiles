@@ -110,6 +110,18 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#eval "$(dircolors ~/.dircolors)";
-#eval "$(dircolors ~/dircolors-solarized/dircolors.256dark)";
-eval "$(dircolors ~/dircolors-solarized/dircolors.ansi-dark)";
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#eval "$(dircolors ~/dircolors-solarized/dircolors.ansi-dark)";
+
+#Change ls colours
+LS_COLORS="ow=01;36;40" && export LS_COLORS
+
+#make cd use the ls colours
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+autoload -Uz compinit
+compinit
+
+
