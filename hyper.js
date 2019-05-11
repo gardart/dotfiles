@@ -1,5 +1,6 @@
 // Copy this file to your windows home directory
 // cp hyper.js /mnt/c/Users/%USERNAME%/AppData/Roaming/Hyper/.hyper.js
+// $Env:AppData/Hyper/.hyper.js
 
 module.exports = {
   config: {
@@ -41,10 +42,10 @@ module.exports = {
     cursorAccentColor: '#000',
 
     // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
-    cursorShape: 'BLOCK',
+    cursorShape: 'BEAM',
 
     // set to `true` (without backticks and without quotes) for blinking cursor
-    cursorBlink: false,
+    cursorBlink: true,
 
     // color of the text
     foregroundColor: '#fff',
@@ -160,7 +161,8 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
 	"hyper-ayu",
-	"verminal"
+	"verminal",
+    "hyper-pane"
 	],
 
   // in development, you can create a directory under
