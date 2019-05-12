@@ -52,11 +52,6 @@ function determine_shell() {
   fi
 }
 
-function setup_minidot() {
-  echo "Cloning dotfiles..."
-  git clone https://github.com/gardart/minidot.git $dotfilespath
-}
-
 function setup_vim() {
   echo "Setting up vim...ignore any vim errors post install"
   #vim +BundleInstall +qall
@@ -79,7 +74,6 @@ function setup_git() {
 # to your home directory.
 function symlink_files() {
   ignoredfiles=(LICENSE README.md install.bash update-zsh.sh hyper.js)
-  cd $dotfilespath
 
   for f in $(ls -d *); do
     if [[ ${ignoredfiles[@]} =~ $f ]]; then
@@ -131,7 +125,7 @@ function replace_file() {
 
 set -e
 (
-  dotfilespath=$HOME/.minidot
+  #dotfilespath=$HOME/.minidot
   timestamp=$(date -d "today" +"%Y%m%d%H%M")
 
   determine_package_manager
@@ -177,7 +171,6 @@ set -e
   fi
 
   setup_git
-  setup_minidot
   symlink_files
   setup_vim
 
