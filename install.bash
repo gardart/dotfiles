@@ -117,8 +117,7 @@ function link_file(){
 
 # replace file
 # arguments: filename
-function replace_file() {
-  mkdir 
+function replace_file() { 
   echo "backing up ~/.$1 to ~/.$1.backup.$timestamp"
   mv "$HOME/.$1" "$HOME/.$1.backup.$timestamp"  
   echo "replacing ~/.$1"
