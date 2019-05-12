@@ -1,5 +1,3 @@
-#! /bin/bash
-
 # Author: Gardar Thorsteinsson
 # Installs your dotfiles
 
@@ -27,18 +25,16 @@ function determine_package_manager() {
 # }
 
 function setup_zsh() {
-  echo 'Adding oh-my-zsh to dotfiles...'
-  OMZDIR=~/.dotfiles/oh-my-zsh
+  echo 'Installing oh-my-zsh...'
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
-  if [ -d "$OMZDIR" ] ; then
-    echo 'Updating oh-my-zsh to latest version'
-    cd ~/.dotfiles/oh-my-zsh
-    git pull origin master
-    cd -
-  else
-    echo 'Adding oh-my-zsh to dotfiles...'
-    git clone https://www.github.com/robbyrussell/oh-my-zsh.git
-  fi
+  mkdir -p $ZSH_CUSTOM/plugins
+  #git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+  #git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+  #mkdir -p $ZSH_CUSTOM/themes
+  #curl curl -O https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme -o $ZSH_CUSTOM/themes/schminitz.zsh-theme
 }
 
 function determine_shell() {
@@ -54,6 +50,11 @@ function determine_shell() {
     echo 'Could not determine choice.'
     exit 1
   fi
+}
+
+function setup_minidot() {
+  echo "Cloning dotfiles..."
+  git clone https://github.com/gardart/minidot.git $dotfilespath
 }
 
 function setup_vim() {
@@ -77,7 +78,8 @@ function setup_git() {
 # Adds a symbolic link to files in ~/.dotfiles
 # to your home directory.
 function symlink_files() {
-  ignoredfiles=(LICENSE README.md install.bash update-zsh.sh)
+  ignoredfiles=(LICENSE README.md install.bash update-zsh.sh hyper.js)
+  cd $dotfilespath
 
   for f in $(ls -d *); do
     if [[ ${ignoredfiles[@]} =~ $f ]]; then
@@ -109,7 +111,7 @@ function symlink_files() {
 function link_file(){
   echo "linking ~/.$1"
   if ! $(ln -s "$PWD/$1" "$HOME/.$1");  then
-    echo "Replace file '~/.$1'?"
+    echo "Backup and replace file '~/.$1'?"
     read -p "[Y/n]?: " Q_REPLACE_FILE
     if [[ $Q_REPLACE_FILE != 'n' ]]; then
       replace_file $1
@@ -120,12 +122,18 @@ function link_file(){
 # replace file
 # arguments: filename
 function replace_file() {
+  mkdir 
+  echo "backing up ~/.$1 to ~/.$1.backup.$timestamp"
+  mv "$HOME/.$1" "$HOME/.$1.backup.$timestamp"  
   echo "replacing ~/.$1"
   ln -sf "$PWD/$1" "$HOME/.$1"
 }
 
 set -e
 (
+  dotfilespath=$HOME/.minidot
+  timestamp=$(date -d "today" +"%Y%m%d%H%M")
+
   determine_package_manager
   # general package array
   declare -a packages=('vim' 'git' 'tree' 'htop' 'wget' 'curl' 'bash-completion')
@@ -141,7 +149,7 @@ set -e
     echo "You are running homebrew."
     echo "Using Homebrew to install packages..."
     # brew update
-    declare -a macpackages=('findutils' 'macvim' 'the_silver_searcher')
+    declare -a macpackages=('findutils' 'the_silver_searcher')
     brew install "${packages[@]}" "${macpackages[@]}"
 #    brew cleanup
   elif [[ "$OSPACKMAN" == "yum" ]]; then
@@ -149,12 +157,13 @@ set -e
     echo "Using yum to install packages...."
     # sudo yum update
     declare -a rhelpackages=('the_silver_searcher')
-    sudo yum install "${packages[@]}" "${rhelpackages}"
+    sudo yum install "${packages[@]}" "${rhelpackages[@]}"
   elif [[ "$OSPACKMAN" == "aptget" ]]; then
     echo "You are running apt-get"
     echo "Using apt-get to install packages...."
+    declare -a debianpackages=('screenfetch')
     sudo apt-get update
-    sudo apt-get install "${packages[@]}"
+    sudo apt-get install "${packages[@]}" "${debianpackages[@]}"
   else
     echo "Could not determine OS. Exiting..."
     exit 1
@@ -168,6 +177,7 @@ set -e
   fi
 
   setup_git
+  setup_minidot
   symlink_files
   setup_vim
 
