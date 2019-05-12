@@ -173,7 +173,7 @@ set -e
   fi
 
   symlink_files
-  setup_git
+#  setup_git
   setup_vim
 
   if [[ $LOGIN_SHELL == 'bash' ]] ; then
