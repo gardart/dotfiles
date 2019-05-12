@@ -75,7 +75,7 @@ function setup_git() {
 # Adds a symbolic link to files in ~/.dotfiles
 # to your home directory.
 function symlink_files() {
-  ignoredfiles=(LICENSE README.md install.bash update-zsh.sh hyper.js)
+  ignoredfiles=(LICENSE README.md install.bash update-zsh.sh wsl-hyper.js)
 
   for f in $(ls -d *); do
     if [[ ${ignoredfiles[@]} =~ $f ]]; then
