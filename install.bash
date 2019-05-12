@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Author: Gardar Thorsteinsson
 # Installs your dotfiles
 
@@ -54,7 +56,7 @@ function determine_shell() {
 
 function setup_vim() {
   echo "Setting up vim...ignore any vim errors post install"
-  #vim +BundleInstall +qall
+  vim +PlugInstall +qall
 }
 
 function setup_git() {
@@ -170,8 +172,8 @@ set -e
     setup_zsh
   fi
 
-  setup_git
   symlink_files
+  setup_git
   setup_vim
 
   if [[ $LOGIN_SHELL == 'bash' ]] ; then
