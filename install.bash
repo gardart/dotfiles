@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Author: Gardar Thorsteinsson
-# Installs your dotfiles
+# Installs your dotfiles...
 
 # Function to determine package manager
 function determine_package_manager() {
@@ -156,7 +156,8 @@ set -e
   elif [[ "$OSPACKMAN" == "aptget" ]]; then
     echo "You are running apt-get"
     echo "Using apt-get to install packages...."
-    declare -a debianpackages=('screenfetch')
+    #declare -a debianpackages=('screenfetch')
+    declare -a debianpackages=('lsb-release')
     sudo apt-get update
     sudo apt-get install "${packages[@]}" "${debianpackages[@]}"
   else
