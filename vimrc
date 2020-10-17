@@ -8,32 +8,22 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'kien/ctrlp.vim'
-Plug 'janko-m/vim-test'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'                   " shows a git diff in the 'gutter' (sign column)
 Plug 'scrooloose/nerdtree'
-" Plug 'scrooloose/syntastic'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'connorholyday/vim-snazzy'
 Plug 'ayu-theme/ayu-vim'
 Plug 'sjl/badwolf'
 Plug 'hzchirs/vim-material'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'crazy-canux/nagios.vim'
+" Plug 'crazy-canux/nagios.vim'
 Plug 'SirVer/ultisnips' " | Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
-if (v:version > 799)
-  Plug 'w0rp/ale'
-endif
-" If installed using Homebrew
-"Plug '/usr/local/opt/fzf'
-Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
-" If installed using git
-"Plug '~/.fzf'
+Plug 'dense-analysis/ale'
 call plug#end()
 " }}}
 " Colors {{{
@@ -41,27 +31,29 @@ syntax enable           " enable syntax processing
 if has('termguicolors')
   set termguicolors     " use guifg/guibg instead of ctermfg/ctermbg in terminal
 endif
+
+if (&term =~ '^xterm' && &t_Co == 256)     " https://github.com/microsoft/terminal/issues/832
+  set t_ut= | set ttyscroll=1
+endif
 " colorscheme badwolf
 " colorscheme base16-monokai
 " colorscheme base16-solarized-dark
-" colorscheme snazzy
-colorscheme ayu
 " colorscheme vim-material
+colorscheme ayu
 " }}}
 " Misc {{{
 scriptencoding utf-8
 set encoding=utf-8
 set backspace=indent,eol,start
-let g:vimwiki_list = [{'path': '~/.wiki/'}]
 if exists('&belloff')
   set belloff=all                     " never ring the bell for any reason
 endif
 " }}}
 " Spaces & Tabs {{{
-set tabstop=4           " 4 space tab
+set tabstop=2           " 2 space tab
 set expandtab           " use spaces for tabs
-set softtabstop=4       " 4 space tab
-set shiftwidth=4
+set softtabstop=2       " 2 space tab
+set shiftwidth=2
 set modelines=1
 filetype indent on
 filetype plugin on
@@ -116,16 +108,14 @@ nnoremap gV `[v`]
 let mapleader=","
 nnoremap <Leader>o :only<CR>
 nnoremap <leader>m :silent make\|redraw!\|cw<CR>
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>et :exec ":vsp /Users/dblack/notes/vim/" . strftime('%m-%d-%y') . ".md"<CR>
-nnoremap <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ev :vsp $MYVIMRC<CR>         " Edit vimrc
+nnoremap <leader>ez :vsp ~/.zshrc<CR>         " Edit zshrc
+nnoremap <leader>sv :source $MYVIMRC<CR>         " Source vimrc
 nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
 nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
 nnoremap <leader>1 :set number!<CR>
-nnoremap <leader>r :TestFile<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>d :NERDTreeToggle<CR>
 set pastetoggle=<leader>p
