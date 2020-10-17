@@ -24,6 +24,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'SirVer/ultisnips' " | Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
+Plug 'pedrohdz/vim-yaml-folds'
 call plug#end()
 " }}}
 " Colors {{{
