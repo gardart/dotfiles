@@ -1,6 +1,5 @@
 // Copy this file to your windows home directory
-// cp hyper.js /mnt/c/Users/%USERNAME%/AppData/Roaming/Hyper/.hyper.js
-// $Env:AppData/Hyper/.hyper.js
+// cp ./hyper.js ~/c/Users/{YOUR_USER}/.hyper.js
 
 module.exports = {
   config: {
@@ -160,11 +159,15 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-	"hyper-ayu",
-	"verminal",
-    "hyper-pane"
+	"hyper-pane",
+	"hypercwd",
+	"hyper-search"
 	],
 
+// "hyper-ayu",
+// "verminal"
+//hyper-solarized-dark
+//hyper-material-theme
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
