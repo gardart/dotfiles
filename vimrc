@@ -36,11 +36,11 @@ endif
 if (&term =~ '^xterm' && &t_Co == 256)     " https://github.com/microsoft/terminal/issues/832
   set t_ut= | set ttyscroll=1
 endif
-" colorscheme badwolf
+colorscheme badwolf
 " colorscheme base16-monokai
 " colorscheme base16-solarized-dark
 " colorscheme vim-material
-colorscheme ayu
+" colorscheme ayu
 " }}}
 " Misc {{{
 scriptencoding utf-8
@@ -191,9 +191,8 @@ set writebackup
 " }}}
 " airline {{{
 set laststatus=2
-" let g:airline_theme = 'badwolf'
-" let g:airline_theme = 'solarized'
-let g:airline_theme = 'ayu'
+let g:airline_theme = 'badwolf'
+" let g:airline_theme = 'ayu'
 let g:airline_left_sep = ''
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
