@@ -176,6 +176,12 @@ augroup END
 let test#strategy = 'basic'
 let test#python#runner = 'nose'
 " }}}
+" ALE {{{
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
+" }}}
 " Backups {{{
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
