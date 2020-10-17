@@ -168,6 +168,7 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufEnter *.py setlocal tabstop=4
     autocmd BufEnter *.md setlocal ft=markdown
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
 " }}}
 " Testing {{{
