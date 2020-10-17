@@ -7,7 +7,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'                   " shows a git diff in the 'gutter' (sign column)
 Plug 'scrooloose/nerdtree'
@@ -119,6 +120,22 @@ nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
 nnoremap <leader>1 :set number!<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+" surround word
+nnoremap <leader>" ciw"<C-r>""<esc>
+nnoremap <leader>' ciw'<C-r>"'<esc>
+nnoremap <leader>{ ciw{<C-r>"}<esc>
+nnoremap <leader>( ciw(<C-r>")<esc>
+nnoremap <leader>[ ciw[<C-r>"]<esc>
+nnoremap <leader>< ciw<<C-r>"><esc>
+" surround selection
+vnoremap <leader>" c"<C-r>""<esc>
+vnoremap <leader>' c'<C-r>"'<esc>
+vnoremap <leader>{ c{<C-r>"}<esc>
+vnoremap <leader>( c(<C-r>")<esc>
+vnoremap <leader>[ c[<C-r>"]<esc>
+vnoremap <leader>< c<<C-r>"><esc>
+nnoremap <Leader><Leader> <C-^>         " <Leader><Leader> -- Open last buffer.
 set pastetoggle=<leader>p
 " }}}
 " Normal mode mappings {{{
