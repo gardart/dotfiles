@@ -113,10 +113,10 @@ nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 nnoremap <leader>ev :vsp $MYVIMRC<CR>         " Edit vimrc
 nnoremap <leader>ez :vsp ~/.zshrc<CR>         " Edit zshrc
 nnoremap <leader>sv :source $MYVIMRC<CR>         " Source vimrc
-nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
 nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
+nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader>1 :set number!<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>d :NERDTreeToggle<CR>
