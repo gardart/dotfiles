@@ -19,6 +19,7 @@ $ ./install.bash
 * `gcc` toggles current line comment
 * `gc` toggles visual selection comment lines
 * `,[space]`  turn off highlighting until the next search
-* `,l` Toggle numbers
+* `,l` Toggle between numbers and relative numbers
+* `,1` Toggle number / nonumber
 * `<C-hjkl>` move between windows, shorthand for `<C-w> hjkl`
 
