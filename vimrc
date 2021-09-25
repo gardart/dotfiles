@@ -41,11 +41,12 @@ syntax enable           " enable syntax processing
 if has('termguicolors')
   set termguicolors     " use guifg/guibg instead of ctermfg/ctermbg in terminal
 endif
+"let ayucolor="dark"
 " colorscheme badwolf
-" colorscheme base16-monokai
-" colorscheme base16-solarized-dark
+colorscheme base16-monokai
+"colorscheme base16-solarized-dark
 " colorscheme snazzy
-colorscheme ayu
+" colorscheme ayu
 " colorscheme vim-material
 " }}}
 " Misc {{{
@@ -194,8 +195,8 @@ set writebackup
 " airline {{{
 set laststatus=2
 " let g:airline_theme = 'badwolf'
-" let g:airline_theme = 'solarized'
-let g:airline_theme = 'ayu'
+let g:airline_theme = 'solarized'
+"let g:airline_theme = 'ayu'
 let g:airline_left_sep = ''
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''

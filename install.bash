@@ -28,7 +28,7 @@ function determine_package_manager() {
 
 function setup_zsh() {
   echo 'Installing oh-my-zsh...'
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  #sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
   mkdir -p $ZSH_CUSTOM/plugins
@@ -127,7 +127,7 @@ function replace_file() {
 set -e
 (
   #dotfilespath=$HOME/.minidot
-  timestamp=$(date -d "today" +"%Y%m%d%H%M")
+  timestamp=$(date +"%Y%m%d%H%M")
 
   determine_package_manager
   # general package array
