@@ -7,33 +7,25 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
-Plug 'kien/ctrlp.vim'
-Plug 'janko-m/vim-test'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'                   " shows a git diff in the 'gutter' (sign column)
 Plug 'scrooloose/nerdtree'
-" Plug 'scrooloose/syntastic'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'connorholyday/vim-snazzy'
 Plug 'ayu-theme/ayu-vim'
 Plug 'sjl/badwolf'
 Plug 'hzchirs/vim-material'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'crazy-canux/nagios.vim'
+" Plug 'crazy-canux/nagios.vim'
 Plug 'SirVer/ultisnips' " | Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
-if (v:version > 799)
-  Plug 'w0rp/ale'
-endif
-" If installed using Homebrew
-"Plug '/usr/local/opt/fzf'
-Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
-" If installed using git
-"Plug '~/.fzf'
+Plug 'dense-analysis/ale'
+Plug 'pedrohdz/vim-yaml-folds'
 call plug#end()
 " }}}
 " Colors {{{
@@ -41,28 +33,25 @@ syntax enable           " enable syntax processing
 if has('termguicolors')
   set termguicolors     " use guifg/guibg instead of ctermfg/ctermbg in terminal
 endif
-"let ayucolor="dark"
-" colorscheme badwolf
 colorscheme base16-monokai
-"colorscheme base16-solarized-dark
-" colorscheme snazzy
-" colorscheme ayu
-" colorscheme vim-material
+" colorscheme badwolf
+if (&term =~ '^xterm' && &t_Co == 256)     " https://github.com/microsoft/terminal/issues/832
+  set t_ut= | set ttyscroll=1
+endif
 " }}}
 " Misc {{{
 scriptencoding utf-8
 set encoding=utf-8
 set backspace=indent,eol,start
-let g:vimwiki_list = [{'path': '~/.wiki/'}]
 if exists('&belloff')
   set belloff=all                     " never ring the bell for any reason
 endif
 " }}}
 " Spaces & Tabs {{{
-set tabstop=4           " 4 space tab
+set tabstop=2           " 2 space tab
 set expandtab           " use spaces for tabs
-set softtabstop=4       " 4 space tab
-set shiftwidth=4
+set softtabstop=2       " 2 space tab
+set shiftwidth=2
 set modelines=1
 filetype indent on
 filetype plugin on
@@ -117,18 +106,32 @@ nnoremap gV `[v`]
 let mapleader=","
 nnoremap <Leader>o :only<CR>
 nnoremap <leader>m :silent make\|redraw!\|cw<CR>
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>et :exec ":vsp /Users/dblack/notes/vim/" . strftime('%m-%d-%y') . ".md"<CR>
-nnoremap <leader>ez :vsp ~/.zshrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
-nnoremap <leader>l :call ToggleNumber()<CR>
+nnoremap <leader>ev :vsp $MYVIMRC<CR>         " Edit vimrc
+nnoremap <leader>ez :vsp ~/.zshrc<CR>         " Edit zshrc
+nnoremap <leader>sv :source $MYVIMRC<CR>         " Source vimrc
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
 nnoremap <leader>c :SyntasticCheck<CR>:Errors<CR>
+nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader>1 :set number!<CR>
-nnoremap <leader>r :TestFile<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+" surround word
+nnoremap <leader>" ciw"<C-r>""<esc>
+nnoremap <leader>' ciw'<C-r>"'<esc>
+nnoremap <leader>{ ciw{<C-r>"}<esc>
+nnoremap <leader>( ciw(<C-r>")<esc>
+nnoremap <leader>[ ciw[<C-r>"]<esc>
+nnoremap <leader>< ciw<<C-r>"><esc>
+" surround selection
+vnoremap <leader>" c"<C-r>""<esc>
+vnoremap <leader>' c'<C-r>"'<esc>
+vnoremap <leader>{ c{<C-r>"}<esc>
+vnoremap <leader>( c(<C-r>")<esc>
+vnoremap <leader>[ c[<C-r>"]<esc>
+vnoremap <leader>< c<<C-r>"><esc>
+nnoremap <Leader><Leader> <C-^>         " <Leader><Leader> -- Open last buffer.
 set pastetoggle=<leader>p
 " }}}
 " Normal mode mappings {{{
@@ -179,11 +182,18 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufEnter *.py setlocal tabstop=4
     autocmd BufEnter *.md setlocal ft=markdown
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
 " }}}
 " Testing {{{
 let test#strategy = 'basic'
 let test#python#runner = 'nose'
+" }}}
+" ALE {{{
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
 " }}}
 " Backups {{{
 set backup
@@ -196,7 +206,6 @@ set writebackup
 set laststatus=2
 " let g:airline_theme = 'badwolf'
 let g:airline_theme = 'solarized'
-"let g:airline_theme = 'ayu'
 let g:airline_left_sep = ''
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
