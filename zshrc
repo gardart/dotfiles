@@ -58,12 +58,15 @@ plugins=(
     python
     virtualenv
     virtualenvwrapper
-    osx
+    macos
     docker
     iterm2
     vscode
     brew
     vi-mode
+    fzf
+    fzf-tab
+    zsh-autosuggestions
     )
 
 
@@ -102,7 +105,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # EXA aliases
-alias ls='exa'                                                         # ls
+# alias ls='exa'                                                         # ls
 alias l='exa -lbF --git'                                               # list, size, type, git
 alias ll='exa -lbGF --git'                                             # long list
 alias llm='exa -lbGF --git --sort=modified'                            # long list, modified date sort
@@ -136,13 +139,13 @@ source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # added by travis gem
-[ ! -s /Users/gardar/.travis/travis.sh ] || source /Users/gardar/.travis/travis.sh
+#[ ! -s /Users/gardar/.travis/travis.sh ] || source /Users/gardar/.travis/travis.sh
 
 OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
