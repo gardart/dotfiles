@@ -8,6 +8,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'                   " shows a git diff in the 'gutter' (sign column)
@@ -17,7 +18,7 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'ayu-theme/ayu-vim'
+Plug 'joshdick/onedark.vim'
 Plug 'sjl/badwolf'
 Plug 'hzchirs/vim-material'
 Plug 'editorconfig/editorconfig-vim'
@@ -26,6 +27,18 @@ Plug 'SirVer/ultisnips' " | Plug 'honza/vim-snippets'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'pedrohdz/vim-yaml-folds'
+" Better Whitespace {{{
+Plug 'ntpeters/vim-better-whitespace'
+autocmd FileType fugitive DisableWhitespace
+let g:better_whitespace_enabled = 1
+let g:better_whitespace_guicolor='LightYellow'
+let g:better_whitespace_ctermcolor='LightYellow'
+let g:strip_max_file_size = 0
+let g:strip_whitelines_at_eof = 1
+let g:strip_whitespace_confirm = 0
+let g:strip_whitespace_on_save = 0
+autocmd FileType javascript,c,cpp,java,html,ruby,yaml,python EnableStripWhitespaceOnSave
+" }}}
 call plug#end()
 " }}}
 " Colors {{{
@@ -65,6 +78,7 @@ set nocursorline        " highlight current line
 set wildmenu
 set lazyredraw
 set showmatch           " higlight matching parenthesis
+set listchars=eol:¶,trail:•,tab:▸\  showbreak=¬\
 " Automation for numbering modes
 " Automatically switch to absolute line numbers when in insert mode
 " and relative numbers when in normal mode
@@ -182,7 +196,7 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufEnter *.py setlocal tabstop=4
     autocmd BufEnter *.md setlocal ft=markdown
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+"    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
 " }}}
 " Testing {{{
@@ -212,6 +226,13 @@ let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline#extensions#tabline#enabled = 1    " Automatically displays all buffers when theres only one tab open
 " }}}
+
+" Filetype settings {{{
+autocmd FileType python setlocal omnifunc=python3complete#Complete
+autocmd FileType yaml setlocal ai ts=2 sts=2 sw=2 expandtab number cursorcolumn omnifunc=syntaxcomplete#Complete
+autocmd FileType yaml autocmd BufWritePre <buffer> %s/\s\+$//e            " Automatically removing all trailing whitespace
+" }}}
+
 " Custom Functions {{{
 function! ToggleNumber()
     if(&relativenumber == 1)
@@ -245,6 +266,18 @@ function! <SID>CleanFile()
     let @/=_s
     call cursor(l, c)
 endfunction
+
+function RemoveM()
+%s/^M//
+:endfunction
+ 
+function RemoveWhiteSpace()
+%s/^ \+ $//       " replaces a line that starts and ends with white spaces
+%s/^ $//          " replaces a single white space that is alone on a line
+%s/ \+$//         " replaces the end of a line that finishes with trailing spaces
+%s/ $//           " replaces the end of a line that finishes with single white space
+:endfunction
+
 " }}}
 "
 " vim:foldmethod=marker:foldlevel=0
