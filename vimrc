@@ -131,6 +131,16 @@ nnoremap <leader>1 :set number!<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
+" Prevent x and the delete key from overriding what's in the clipboard.
+noremap x "_x
+noremap X "_x
+noremap <Del> "_x
+" Prevent selecting and pasting from overwriting what you originally copied.
+" xnoremap p pgvy
+" greatest remap ever
+" no overwrite paste
+" xnoremap <leader>p "_dP
+xnoremap p "_dP
 " surround word
 nnoremap <leader>" ciw"<C-r>""<esc>
 nnoremap <leader>' ciw'<C-r>"'<esc>
@@ -146,6 +156,9 @@ vnoremap <leader>( c(<C-r>")<esc>
 vnoremap <leader>[ c[<C-r>"]<esc>
 vnoremap <leader>< c<<C-r>"><esc>
 nnoremap <Leader><Leader> <C-^>         " <Leader><Leader> -- Open last buffer.
+" Easier moving text
+vnoremap < <gv
+vnoremap > >gv
 set pastetoggle=<leader>p
 " }}}
 " Normal mode mappings {{{
@@ -278,6 +291,20 @@ function RemoveWhiteSpace()
 %s/ $//           " replaces the end of a line that finishes with single white space
 :endfunction
 
+" }}}
+" Custom Overrides {{{
+"
+" Allow for per-machine overrides in ~/.vim/host/hostname and
+" ~/.vim/vimrc.local.
+let s:hostfile = $HOME . '/.vim/host/' . substitute(hostname(), "\\..*", '', '')
+if filereadable(s:hostfile)
+  execute 'source ' . s:hostfile
+endif
+
+let s:vimrc_local = $HOME . '/.vim/.vimrc.local'
+if filereadable(s:vimrc_local)
+  execute 'source ' . s:vimrc_local
+endif
 " }}}
 "
 " vim:foldmethod=marker:foldlevel=0
