@@ -239,13 +239,11 @@ let g:airline_right_sep = ''
 let g:airline_right_sep = ''
 let g:airline#extensions#tabline#enabled = 1    " Automatically displays all buffers when theres only one tab open
 " }}}
-
 " Filetype settings {{{
 autocmd FileType python setlocal omnifunc=python3complete#Complete
 autocmd FileType yaml setlocal ai ts=2 sts=2 sw=2 expandtab number cursorcolumn omnifunc=syntaxcomplete#Complete
 autocmd FileType yaml autocmd BufWritePre <buffer> %s/\s\+$//e            " Automatically removing all trailing whitespace
 " }}}
-
 " Custom Functions {{{
 function! ToggleNumber()
     if(&relativenumber == 1)
