@@ -1,14 +1,23 @@
-## Installation
+# Installation
 
+## Make backup of current config
+```shell
+mv ~/.config/nvim ~/.config/nvim.bak.$(date +%Y%m%d%H%M%S)
+mv ~/.config/tmux ~/.config/tmux.bak.$(date +%Y%m%d%H%M%S)
 ```
-$ git clone --recursive git@github.com:gardart/minidot.git ~/.dotfiles
-$ cd ~/.dotfiles
-$ ./install.bash
+## Install
+```shell
+git clone https://github.com/gardart/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+make stow
+stow -t $HOME zsh --verbose=3
+stow -t $HOME tmux
+stow -t $HOME nvim
 ```
 
-## Configurations
+# Configurations
 
-### vim
+## vim
 
 * `,d` brings up / closes down [NERDTree](https://github.com/scrooloose/nerdtree), a sidebar buffer for navigating and manipulating files
 * `<Ctrl-P>` brings up [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim), a project file filter for easily opening specific files
