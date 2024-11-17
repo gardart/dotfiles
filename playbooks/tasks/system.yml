@@ -1,0 +1,8 @@
+- name: Install Fira Code font
+  become: true
+  become_user: root
+  dnf:
+    state: present
+    name:
+      - fira-code-fonts
+
