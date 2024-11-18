@@ -191,8 +191,8 @@
 [core]
         editor = vim
         abbrev = 12
-        attributesfile = ~/.gitattributes
-        excludesfile = ~/.gitignore
+        attributesfile = ~/.config/git/attributes
+        excludesfile = ~/.config/git/ignore
         autocrlf = input
         mergeoptions = --no-edit
         ignorecase = false
