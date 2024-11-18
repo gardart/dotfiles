@@ -14,7 +14,6 @@ stow -t $HOME zsh --verbose=3
 stow -t $HOME tmux
 stow -t $HOME nvim
 ```
-
 # Configurations
 
 ## vim
