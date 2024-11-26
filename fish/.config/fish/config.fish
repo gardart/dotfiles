@@ -37,6 +37,9 @@ alias l...='eza -al --color=always --group-directories-first ../../../' # ls on 
 
 set -gx EDITOR nvim
 
+### HomeBrew
+eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
 ### SET MANPAGER
 ### Uncomment only one of these!
 
