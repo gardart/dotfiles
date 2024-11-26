@@ -17,6 +17,7 @@ make stow
 stow -t $HOME zsh --verbose=3
 stow -t $HOME tmux
 stow -t $HOME nvim
+stow -t $HOME fish
 ```
 
 # Configurations
