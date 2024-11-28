@@ -38,7 +38,13 @@ alias l...='eza -al --color=always --group-directories-first ../../../' # ls on 
 set -gx EDITOR nvim
 
 ### HomeBrew
-eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+if test -d /home/linuxbrew/.linuxbrew
+    # Homebrew is installed on Linux
+    /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
+else if test -d /opt/homebrew
+    # Homebrew is installed on MacOS
+    /opt/homebrew/bin/brew shellenv | source
+end
 
 ### SET MANPAGER
 ### Uncomment only one of these!
