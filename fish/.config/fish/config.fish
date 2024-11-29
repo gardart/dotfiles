@@ -55,14 +55,6 @@ set -x MANPAGER "nvim +Man!"
 ### "less" as manpager
 # set -x MANPAGER "less"
 
-### SET EITHER DEFAULT EMACS MODE OR VI MODE ###
-function fish_user_key_bindings
-    # fish_default_key_bindings
-    fish_vi_key_bindings
-end
-### END OF VI MODE ###
-
-
 switch (uname)
     case Darwin
         source (dirname (status --current-filename))/config-osx.fish
