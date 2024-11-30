@@ -117,7 +117,7 @@ nnoremap k gk
 nnoremap gV `[v`]
 " }}}
 " Leader Shortcuts {{{
-let mapleader=","
+let mapleader=" "
 nnoremap <Leader>o :only<CR>
 nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 nnoremap <leader>ev :vsp $MYVIMRC<CR>         " Edit vimrc
@@ -130,6 +130,7 @@ nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader>1 :set number!<CR>
 vnoremap <leader>y "+y
 nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
 " Prevent x and the delete key from overriding what's in the clipboard.
 noremap x "_x

@@ -1,0 +1,8 @@
+- name: Install tmux
+  become: true
+  become_user: root
+  dnf:
+    state: present
+    name:
+      - tmux
+

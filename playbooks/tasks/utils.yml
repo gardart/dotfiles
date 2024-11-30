@@ -1,0 +1,8 @@
+- name: Install stow
+  become: true
+  become_user: root
+  dnf:
+    state: present
+    name:
+      - stow
+

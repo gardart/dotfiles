@@ -177,15 +177,22 @@
         changed = yellow reverse
         untracked = red reverse
 
+[difftool]
+      prompt = true
+[diff]
+      tool = nvimdiff
+[difftool "nvimdiff"]
+      cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
 # Git mergetool
 [merge]
-        tool = opendiff
+        tool = nvimdiff
 
 [core]
         editor = vim
         abbrev = 12
-        attributesfile = ~/.gitattributes
-        excludesfile = ~/.gitignore
+        attributesfile = ~/.config/git/attributes
+        excludesfile = ~/.config/git/ignore
         autocrlf = input
         mergeoptions = --no-edit
         ignorecase = false
