@@ -14,10 +14,10 @@ mv ~/.config/tmux ~/.config/tmux.bak.$(date +%Y%m%d%H%M%S)
 git clone https://github.com/gardart/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 make stow
-stow -t $HOME zsh --verbose=3
-stow -t $HOME tmux
-stow -t $HOME nvim
-stow -t $HOME fish
+# stow -t $HOME zsh --verbose=3
+# stow -t $HOME tmux
+# stow -t $HOME nvim
+# stow -t $HOME fish
 ```
 
 # Configurations
