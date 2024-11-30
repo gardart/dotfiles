@@ -46,6 +46,17 @@ else if test -d /opt/homebrew
     /opt/homebrew/bin/brew shellenv | source
 end
 
+function fish_user_key_bindings
+    # Execute this onceer mode that emacs bindings should be used in
+    fish_default_key_bindings -M insert
+    #
+    #         # Then execute the vi-bindings so they takerecedence when there's a conflict.
+    # Without --no-erase fish_vi_key_bindings will default to
+    # resetting all bindings.
+    # The argument specifies the initial mode (insert, "default" or visual).
+    fish_vi_key_bindings --no-erase insert
+end
+
 ### SET MANPAGER
 ### Uncomment only one of these!
 
