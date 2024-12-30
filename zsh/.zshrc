@@ -93,4 +93,8 @@ eval "$(zoxide init --cmd cd zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Check if Homebrew exists before running its shellenv
+if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
