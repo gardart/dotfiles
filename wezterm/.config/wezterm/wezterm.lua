@@ -10,8 +10,8 @@ config.color_scheme = "Catppuccin Mocha"
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 config.font = wezterm.font("FiraCode Nerd Font", { weight = "Medium" })
-
 config.font_size = 17.0
+config.audible_bell = "Disabled"
 --config.front_end = "OpenGL"
 --config.freetype_load_target = "Light"
 --config.freetype_render_target = "HorizontalLcd"

@@ -16,6 +16,9 @@ set -g theme_display_user yes
 set -g theme_hide_hostname no
 set -g theme_hostname always
 
+# bell
+set -g fish_beep 0
+
 # aliases
 #alias ls "ls -p -G"
 #alias la "ls -A"
